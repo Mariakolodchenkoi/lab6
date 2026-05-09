@@ -10,4 +10,21 @@ async function* largeDataFactory(count) {
   }
 }
 
-export { largeDataFactory };
+async function processDataStream(stream) {
+  let totalProcessed = 0;
+  let sum = 0;
+
+  for await (const chunk of stream) {
+    sum += chunk.value;
+    totalProcessed++;
+    
+    if (chunk.id % 100 === 0) {
+      console.log(`Progress: ${chunk.id}`);
+    }
+  }
+
+  return {
+    total: totalProcessed,
+    average: sum / totalProcessed
+  };
+}
