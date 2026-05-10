@@ -28,3 +28,15 @@ async function processDataStream(stream) {
     average: sum / totalProcessed
   };
 }
+async function main() {
+  try {
+    const dataStream = largeDataFactory(500);
+    const result = await processDataStream(dataStream);
+
+    console.log("Results:", result);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+main();
